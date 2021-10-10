@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "sipdigital",
+    "slug": "sipdigital",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "sipdigital"
+}
