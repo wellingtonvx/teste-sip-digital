@@ -1,21 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
+import { loadAsync } from "expo-font";
+import { AppRoutes } from "./src/routes/app.routes";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [fontsLoaded, setFontsLoaded] = useState(false);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  async function loadFonts() {
+    await loadAsync({
+      "Poppins-Regular": {
+        uri: require("./src/assets/fonts/Poppins-Regular.ttf"),
+      },
+      "Poppins-Semibold": {
+        uri: require("./src/assets/fonts/Poppins-SemiBold.ttf"),
+      },
+      "Poppins-Bold": {
+        uri: require("./src/assets/fonts/Poppins-Bold.ttf"),
+      },
+    });
+
+    setFontsLoaded(true);
+  }
+
+  useEffect(() => {
+    loadFonts();
+  }, []);
+  return fontsLoaded ? (
+    <NavigationContainer>
+      <AppRoutes />
+      <StatusBar />
+    </NavigationContainer>
+  ) : null;
+}
